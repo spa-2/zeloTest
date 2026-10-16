@@ -2,10 +2,6 @@
 
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
-## Project
-
-Spring Boot 4.1.1 / Java 21 (Gradle toolchain) backend, base package `com.server.zelotest`.
-
 ## Commands
 
 ```bash
@@ -22,17 +18,15 @@ No lint/format plugin is configured. Note that `ZelotestApplicationTests` loads 
 
 ## Configuration notes
 
-- `src/main/resources/application.yaml` hardcodes the local datasource (`localhost:5432/zelotest`, `postgres`/`postgres1234`, matching `docker-compose.yml`), model `gpt-4o-mini`, and `ddl-auto: update` (schema is auto-managed by Hibernate; no migration tool).
-- JPA `open-in-view` is disabled, so lazy associations must be loaded inside the service transaction.
-- Hibernate timezone is `Asia/Seoul`; SQL and bind parameters are logged at debug/trace.
+- `application.yaml` hardcodes the local DB (matches `docker-compose.yml`) and uses `ddl-auto: update` (no migration tool).
+- JPA `open-in-view` is disabled, so lazy associations must be loaded inside the transaction.
 
 ## CI and review
 
-- `.github/workflows/build.yml` runs `./gradlew build sonar` (SonarCloud project `spa-2_zeloTest`, needs `SONAR_TOKEN`) on pushes to `main` and on PRs.
-- `.coderabbit.yaml`: CodeRabbit reviews PRs in Korean. It expects a layered layout (`controller/`, `service/`, `global/` under `src/main/java/**`) and flags: missing `@Valid`/proper HTTP status in controllers, business logic in controllers, wrong `@Transactional` boundaries, N+1 and race conditions (e.g. point deduction) in services, exceptions not following a common error-code scheme, and security-config changes that widen `permitAll`. Follow these conventions when adding code.
+- CI runs `./gradlew build sonar` on pushes to `main` and PRs (needs `SONAR_TOKEN`).
+- CodeRabbit reviews PRs in Korean (`.coderabbit.yaml`): missing `@Valid`, business logic in controllers, wrong `@Transactional` boundaries, N+1, race conditions, common error-code violations, and widened `permitAll`.
 
 ## Testing
-- 새 서비스 메서드에는 단위 테스트 작성 (given/when/then 주석)
 - 테스트 메서드명은 한글 허용: `포인트가_부족하면_예외가_발생한다()`
 
 ## Git conventions
