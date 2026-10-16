@@ -2,6 +2,14 @@ plugins {
     id 'java'
     id 'org.springframework.boot' version '4.1.1'
     id 'io.spring.dependency-management' version '1.1.7'
+    id "org.sonarqube" version "7.5.0.8588"
+}
+
+sonar {
+    properties {
+        property "sonar.projectKey", "spa-2_zeloTest"
+        property "sonar.organization", "spa-2"
+        }
 }
 
 group = 'com.server'
@@ -31,6 +39,8 @@ dependencies {
     testCompileOnly 'org.projectlombok:lombok'
     testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
     testAnnotationProcessor 'org.projectlombok:lombok'
+
+    implementation 'org.springframework.ai:spring-ai-starter-model-openai:2.0.1'
 }
 
 tasks.named('test') {
