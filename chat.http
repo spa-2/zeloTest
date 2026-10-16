@@ -1,0 +1,23 @@
+### 김치볶음밥 시나리오 (message만 바꿔가며 테스트)
+POST http://localhost:8080/chat
+Content-Type: application/json
+
+{
+  "message": "토요일 저녁에 초등학생 둘이랑 넷이 먹을 건데, 김치볶음밥 재료 3만 원 안에서 준비해 줘"
+}
+
+### 추천 재료 분리 확인
+POST http://localhost:8080/chat
+Content-Type: application/json
+
+{
+  "message": "김치볶음밥 재료 준비해 줘. 참치도 넣으면 맛있을 것 같아"
+}
+
+### 도구가 필요 없는 요청
+POST http://localhost:8080/chat
+Content-Type: application/json
+
+{
+  "message": "안녕, 너는 뭘 할 수 있어?"
+}

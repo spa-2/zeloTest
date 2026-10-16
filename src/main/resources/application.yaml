@@ -5,9 +5,7 @@ spring:
     openai:
       api-key: ${OPENAI_API_KEY}
       chat:
-        model: gpt-4o-mini
-        temperature: 0.3
-
+        model: gpt-5-mini
   datasource:
     url: jdbc:postgresql://localhost:5432/zelotest
     username: postgres
@@ -35,4 +33,7 @@ logging:
     org.hibernate.SQL: debug
     org.hibernate.orm.jdbc.bind: trace
 
-
+app:
+  llm:
+    input-per-1m: 0.25
+    output-per-1m: 2.00
